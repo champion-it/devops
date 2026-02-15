@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: worker-service
+  labels:
+    kind: application
+    environment: dev
+spec:
+  project: poc
+  source:
+    kustomize:
+      namespace: poc-develop
+    repoURL: https://<repo-poc>.git
+    targetRevision: HEAD
+    path: <repo-poc>/worker-service
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: poc-develop
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+
