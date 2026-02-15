@@ -1,5 +1,5 @@
-fullnameOverride: poc-service
-nameOverride: poc-service
+fullnameOverride: api-service
+nameOverride: api-service
 
 image:
   repository: "container-image"
@@ -23,9 +23,9 @@ autoscaling:
 configMapData: null
 secretData: null
 existingConfigmaps:
-  - poc-service
+  - api-service
 existingSecrets:
-  - poc-service
+  - api-service
 
 ingress:
   enabled: false
@@ -36,7 +36,7 @@ ingress:
     - host: null
       paths:
         - pathType: Prefix
-          path: "/poc"
+          path: "/health"
 
 resources:
   limits:

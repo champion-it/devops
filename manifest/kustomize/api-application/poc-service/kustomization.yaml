@@ -5,10 +5,6 @@ namespace: api-service
 
 generatorOptions: {}
 
-secretGenerator:
-- envs:
-  - secret.env
-  name: api-service
 
 configMapGenerator:
 - envs:

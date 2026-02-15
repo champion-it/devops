@@ -5,11 +5,6 @@ namespace: worker-service
 
 generatorOptions: {}
 
-secretGenerator:
-- envs:
-  - secret.env
-  name: worker-service
-
 configMapGenerator:
 - envs:
   - configmap.env
