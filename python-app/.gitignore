@@ -40,8 +40,6 @@ dist/
 .vscode/
 .idea/
 
-# Deployment folder (ของคุณ)
-.deployment/
 
 # Runtime files
 *.sqlite3
