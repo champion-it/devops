@@ -1,0 +1,74 @@
+fullnameOverride: worker-service
+nameOverride: worker-service
+
+image:
+  repository: "container-image"
+  tag: "latest"
+  pullPolicy: "IfNotPresent"
+
+seeder:
+  enabled: false
+  image:
+    repository: "init-container-image"
+    tag: "init"
+
+replicaCount: 1
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
+
+configMapData: null
+secretData: null
+existingConfigmaps:
+  - worker-service
+existingSecrets:
+  - worker-service
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  hosts:
+    - host: null
+      paths:
+        - pathType: Prefix
+          path: "/update-timestamp"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 200Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+
+services:
+  - type: ClusterIP
+    ports:
+      - name: http
+        port: 80
+        targetPort: http
+        protocol: TCP
+      - name: grpc
+        port: 50051
+        targetPort: grpc
+        protocol: TCP
+
+healthCheck:
+  enabled: true
+  readinessProbe:
+    httpGet:
+      path: /system/readiness
+      port: 80
+  livenessProbe:
+    httpGet:
+      path: /system/liveness
+      port: 80
+
+nodeSelector: null
+tolerations: null
+affinity: null

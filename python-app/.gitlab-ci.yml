@@ -1,0 +1,31 @@
+include:
+  - project: "sre/pipeline/gitlab-cicd"
+    ref: "test"
+    file: "pipelines/generic-pipeline.yaml"
+
+variables:
+  # Default custom test stage #
+  # UNIT_TEST_IMAGE: "bluestone.hybiot.io/dockerhub/golang:1.22.0-alpine3.19"
+  # UNIT_TEST_BEFORE_SCRIPT: 'go mod download'
+  # UNIT_TEST_SCRIPT: 'go test -v ./... -short'
+
+  # Docker swarm configuration
+  STACK_NAME: "python-app"
+
+  # Kubernetes configuration
+  HELM_UPGRADE_ADDITIONAL_ARGS: "-f .deployment/values-base.yaml"
+  MANIFEST_GROUP: "python-app"
+
+  # ICMP
+  SSH_REPO: "ssh://<URL-INFRA>"
+
+
+# ICMP project
+.variables_k8s_development:
+  variables:
+    CI_JOB_ENABLE: "yes"
+    PROJECT_GROUP: "poc"
+    KUBE_NAMESPACE: "poc-dev"
+    MANIFEST_SSH_REPO: "${SSH_REPO}"
+
+

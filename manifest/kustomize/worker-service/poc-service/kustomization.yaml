@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: worker-service
+
+generatorOptions: {}
+
+secretGenerator:
+- envs:
+  - secret.env
+  name: worker-service
+
+configMapGenerator:
+- envs:
+  - configmap.env
+  name: worker-service
+
+helmCharts:
+- name: hybiot-chart
+  namespace: poc-develop
+  releaseName: worker-service
+  repo: https://<registry>/helm-charts
+  valuesFile: values.yaml
+  version: 1.0.0
+
+images:
+- name: container-image
+  newName: <registry>/services/python-app/backend/worker-service
+  newTag: v1.0.0
+- name: init-container-image
+  newName: <registry>/services/python-app/backend/worker-service
+  newTag: v1.0.0
