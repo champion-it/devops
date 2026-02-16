@@ -5,9 +5,9 @@ include:
 
 variables:
   # Default custom test stage #
-  # UNIT_TEST_IMAGE: "bluestone.hybiot.io/dockerhub/golang:1.22.0-alpine3.19"
-  # UNIT_TEST_BEFORE_SCRIPT: 'go mod download'
-  # UNIT_TEST_SCRIPT: 'go test -v ./... -short'
+  # UNIT_TEST_IMAGE: ""
+  # UNIT_TEST_BEFORE_SCRIPT: ''
+  # UNIT_TEST_SCRIPT: ''
 
   # Docker swarm configuration
   STACK_NAME: "python-app"
